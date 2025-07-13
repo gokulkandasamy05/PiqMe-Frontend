@@ -5,14 +5,16 @@ type UserState = {
   firstName: string
   lastName: string
   _id: string
-  emailId: string
+  emailId: string,
+  image: string
 }
 
 const initialState: UserState = {
   firstName: '',
   lastName: '',
   _id: '',
-  emailId:''
+  emailId:'',
+  image:''
 }
 
 export const userSlice = createSlice({
@@ -23,7 +25,8 @@ export const userSlice = createSlice({
       state.firstName = action.payload.firstName
       state.lastName = action.payload.lastName,
       state._id = action.payload._id,
-      state.emailId = action.payload.emailId
+      state.emailId = action.payload.emailId,
+      state.image = action.payload.image
     },
     clearUser(state) {
       state.firstName = ''

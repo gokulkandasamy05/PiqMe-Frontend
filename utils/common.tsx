@@ -1,0 +1,1 @@
+export const defaultImage = 'https://img.freepik.com/premium-vector/social-media-logo_1305298-29989.jpg?semt=ais_hybrid&w=740'
