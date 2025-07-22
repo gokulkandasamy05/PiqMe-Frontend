@@ -1,6 +1,7 @@
 // middleware.ts
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { persistor } from './utils/appStore';
 
 export function middleware(request: NextRequest) {
   const userCookie = request.cookies.get('token');
@@ -11,8 +12,10 @@ export function middleware(request: NextRequest) {
   const isProtected = protectedPaths.some((path) =>
     pathname === path || pathname.startsWith(path + '/')
   );
+  
 
   if (isProtected && !isLoggedIn) {
+    persistor.purge()
     return NextResponse.redirect(new URL('/login', request.url));
   }
 

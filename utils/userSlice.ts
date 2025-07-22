@@ -6,7 +6,8 @@ type UserState = {
   lastName: string
   _id: string
   emailId: string,
-  image: string
+  image: string,
+  about: String
 }
 
 const initialState: UserState = {
@@ -14,7 +15,8 @@ const initialState: UserState = {
   lastName: '',
   _id: '',
   emailId:'',
-  image:''
+  image:'',
+  about:''
 }
 
 export const userSlice = createSlice({
@@ -23,9 +25,9 @@ export const userSlice = createSlice({
   reducers: {
     setUser(state, action) {
       state.firstName = action.payload.firstName
-      state.lastName = action.payload.lastName,
-      state._id = action.payload._id,
-      state.emailId = action.payload.emailId,
+      state.lastName = action.payload.lastName
+      state._id = action.payload._id
+      state.emailId = action.payload.emailId
       state.image = action.payload.image
     },
     clearUser(state) {
@@ -33,6 +35,7 @@ export const userSlice = createSlice({
       state.lastName = ''
       state._id = ''
       state.emailId = ''
+      state.image = ''
     }
   }
 })
