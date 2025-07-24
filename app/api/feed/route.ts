@@ -16,3 +16,21 @@ export async function GET(req: NextRequest) {
   
   return NextResponse.json(data);
 }
+
+
+
+// export async function GET_USER_REQUESTS(req: NextRequest) {
+//   const cookie = req.headers.get('cookie') || '';
+
+//   const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/requests`, {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Cookie': cookie, // ✅ Forward browser cookie
+//     },
+//   });
+
+//   const data = await response.json();
+  
+//   return NextResponse.json(data);
+// }

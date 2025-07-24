@@ -86,29 +86,7 @@ const Login = () => {
                 <form onSubmit={submitForm} className="space-y-5">
                     {screen === 'signup' && (
                         <>
-                            {/* <div className="flex justify-center">
-                                <div className="relative group w-24 h-24 rounded-full overflow-hidden border-2 border-[#A259FF]">
-                                    <img
-                                        src={userData.image || defaultImage}
-                                        alt="avatar"
-                                        className="w-full h-full object-cover"
-                                    />
-                                    <input
-                                        type="file"
-                                        name="image"
-                                        hidden
-                                        accept="image/png, image/jpeg"
-                                        onChange={handleFileChange}
-                                    />
-                                    <div
-                                        onClick={() => document.querySelector(`input[name=image]`)?.click()}
-                                        className="absolute cursor-pointer inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
-                                    >
-                                        <FaEdit size={20} color="white" />
-                                    </div>
-                                </div>
-                            </div> */}
-                            <ImageUpload acceptableMimeTypes="image/png,image/jpeg" image={userData?.image} onChange={(val: String) => updateImage(val, 'image')} name='image'></ImageUpload>
+                            <ImageUpload acceptableMimeTypes="image/png,image/jpeg" image={userData?.image || defaultImage?.src} onChange={(val: String) => updateImage(val, 'image')} name='image'></ImageUpload>
 
                             <div>
                                 <label className="text-sm text-[#374151]">First Name</label>
@@ -178,7 +156,7 @@ const Login = () => {
                             <p className="text-sm text-[#6B7280]">Don't have an account?</p>
                             <button
                                 onClick={() => setScreen('signup')}
-                                className="cursor-pointer mt-1 text-sm font-medium hover:underline"
+                                className="text-black cursor-pointer mt-1 text-sm font-medium hover:underline"
                             >
                                 Create one
                             </button>
@@ -188,7 +166,7 @@ const Login = () => {
                             <p className="text-sm text-[#6B7280]">Already registered?</p>
                             <button
                                 onClick={() => setScreen('login')}
-                                className="mt-1 text-sm font-medium hover:underline cursor-pointer"
+                                className="text-black mt-1 text-sm font-medium hover:underline cursor-pointer"
                             >
                                 Login
                             </button>

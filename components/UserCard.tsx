@@ -1,59 +1,101 @@
+'use client'
+
 import React from 'react'
+import { defaultImage, logout } from '@/utils/common'
+import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { setLoader } from '@/utils/commonSlice'
 
 type User = {
-    firstName: string
-    lastName: string
-    image: string,
-    about: string,
-    age: string,
-    gender: string,
+  _id: string
+  firstName: string
+  lastName: string
+  image: string
+  about: string
+  age: string
+  gender: string
 }
 
 type Props = {
-    user: User
+  user: User
+  getFeedList?: () => void
+  disabled?: boolean
 }
 
-const UserCard: React.FC<Props> = ({ user }) => {
-    return (
-        <div className='text-black mt-5 md:mt-0 md:w-1/2 flex items-center justify-center'>
-            <div className="card bg-base-100 w-96 shadow-sm border">
-                <figure>
-                    {!!user?.image && <img
-                        src={user?.image}
-                        alt="profile" loading='lazy' />}
-                </figure>
-                <div className="card-body text-white">
-                    <h2 className="card-title">{user?.firstName + ' ' + (user?.lastName ?? '')}</h2>
-                    <p>{user?.age} | {user?.gender}</p>
-                    <p>{user?.about}</p>
-                </div>
+const UserCard: React.FC<Props> = ({ user, getFeedList, disabled }) => {
+  const dispatch = useDispatch()
 
-                <div className="flex gap-4 w-full justify-center mb-5">
-                    {/* Approve Button */}
-                    <button
-                        className="btn btn-circle btn-success shadow-md hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-110"
-                        aria-label="Approve"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                    </button>
+  const acceptOrReject = async (status: string) => {
+    if (disabled) return
+    dispatch(setLoader(true))
+    const id = user?._id
 
-                    {/* Reject Button */}
-                    <button
-                        className="btn btn-circle btn-error shadow-md hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-110"
-                        aria-label="Reject"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/request/send/${status}/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include"
+      })
+      const data = await res.json()
+
+      if (data?.status) {
+        toast.success(data?.message)
+        getFeedList?.()
+      } else {
+        if (data?.logout) logout()
+        toast.error(data?.message)
+      }
+    } catch (err) {
+      console.error(err)
+    } finally {
+      dispatch(setLoader(false))
+    }
+  }
+
+  return (
+    <div className="flex justify-center px-4 py-6 w-full">
+      <div className="bg-white rounded-2xl shadow-lg overflow-hidden w-full max-w-md transition transform hover:scale-[1.01] duration-300">
+        <img
+          src={user?.image || (typeof defaultImage === 'string' ? defaultImage : defaultImage.src)}
+          alt="Profile"
+          className="w-full h-64 object-cover"
+          loading="lazy"
+        />
+
+        <div className="p-6">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">{user?.firstName} {user?.lastName}</h2>
+          <p className="text-gray-600 text-sm mb-1"><strong>Age:</strong> {user?.age}</p>
+          <p className="text-gray-600 text-sm mb-3"><strong>Gender:</strong> {user?.gender}</p>
+          <p className="text-gray-700 text-sm leading-relaxed">{user?.about}</p>
         </div>
-    )
+
+        <div className="flex justify-center gap-6 pb-6">
+          <button
+            className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition duration-300"
+            onClick={() => acceptOrReject('interested')}
+            title="Accept"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2}
+              viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </button>
+          <button
+            className="bg-red-500 hover:bg-red-600 text-white p-3 rounded-full shadow-lg transition duration-300"
+            onClick={() => acceptOrReject('ignored')}
+            title="Reject"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2}
+              viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default UserCard

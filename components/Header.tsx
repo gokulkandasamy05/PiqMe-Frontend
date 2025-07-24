@@ -3,15 +3,15 @@ import { persistor, RootState } from '@/utils/appStore'
 import { defaultImage, setProfileImage } from '@/utils/common'
 import { clearUser } from '@/utils/userSlice'
 import { redirect } from 'next/navigation'
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 const Header = () => {
   const user = useSelector((store: RootState) => store.user)
   const dispatch = useDispatch()
-  
+
   const logout = async () => {
-    const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/logout", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,59 +24,70 @@ const Header = () => {
       dispatch(clearUser())
       persistor.purge()
       redirect('/login')
+    } else {
+      if (data?.logout) {
+        logout()
+      }
     }
   }
 
   return (
-    <header className="bg-[#1C1C28] text-white sticky top-0 z-50 shadow-sm">
-      <nav className="mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div className="text-2xl font-semibold text-[#FF5C8A] tracking-tight cursor-pointer" onClick={() => redirect('/login')}>
+    <header className="fixed top-0 inset-x-0 z-50 bg-white shadow-sm border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div
+          className="text-2xl font-bold text-pink-600 cursor-pointer tracking-tight"
+          onClick={() => redirect('/login')}
+        >
           PiqMe
         </div>
 
         {!!user?._id && (
-          <div className="flex items-center gap-3">
-            <p className="hidden sm:block text-sm font-medium text-white">
+          <div className="flex items-center space-x-4">
+            <p className="hidden sm:block text-sm font-medium text-gray-700">
               {`Welcome, ${user?.firstName}`}
             </p>
 
-            <div className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-ghost btn-circle avatar hover:bg-[#2A2A3B] transition"
-              >
-                <div className="w-10 rounded-full ring ring-offset-2 ring-offset-[#1C1C28]">
+            <div className="relative group">
+              <button className="flex items-center focus:outline-none">
+                <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-pink-500">
                   <img
-                    src={setProfileImage({destination: user?.image?.destination??"", filename: user?.image?.filename??""}) ?? defaultImage}
+                    src={setProfileImage({ destination: user?.image?.destination ?? "", filename: user?.image?.filename ?? "" }) ?? defaultImage}
                     alt="User Avatar"
                     className="object-cover w-full h-full"
                   />
                 </div>
-              </div>
+              </button>
 
-              <ul
-                tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-20 p-2 shadow-xl bg-white rounded-xl w-52 text-[#1C1C28] border border-[#E5E7EB]"
-              >
+              <ul className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg ring-1 ring-black/5 opacity-0 group-hover:opacity-100 group-hover:translate-y-1 transform transition duration-200 z-50 divide-y divide-gray-100">
                 <li>
-                  <a onClick={() => redirect('/profile')} className="hover:bg-[#F9FAFB] rounded-md px-2 py-2 text-sm font-medium">
+                  <button
+                    onClick={() => redirect('/profile')}
+                    className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+                  >
                     Profile
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a
+                  <button
+                    onClick={() => redirect('/connections')}
+                    className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Connections
+                  </button>
+                </li>
+                <li>
+                  <button
                     onClick={logout}
-                    className="hover:bg-[#FFF5F5] rounded-md px-2 py-2 text-sm font-medium text-[#FF3D57]"
+                    className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-100"
                   >
                     Logout
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
           </div>
         )}
-      </nav>
+      </div>
     </header>
   )
 }
