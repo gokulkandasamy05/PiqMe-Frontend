@@ -51,24 +51,26 @@ const UserRow: React.FC<Props> = ({ data = [], hideBtn, getData }) => {
         return (
           <li
             key={item._id || index}
-            className="flex flex-col sm:flex-row items-center sm:items-start bg-white border border-gray-200 rounded-xl p-4 shadow hover:shadow-lg transition-all"
+            className="flex flex-col sm:flex-row items-center sm:items-center text-justify gap-x-10 bg-white border border-gray-200 rounded-xl p-4 shadow hover:shadow-lg transition-all"
           >
-            {/* Profile Image */}
-            <div className="w-[100px] h-[100px] overflow-hidden rounded-xl border border-gray-300">
-              <Image
-                alt="Profile"
-                width={100}
-                height={100}
-                src={imageUrl}
-                className="object-cover w-full h-full"
-              />
-            </div>
+            <div className='flex flex-col md:flex-row w-full'>
+              {/* Profile Image */}
+              <div className="overflow-hidden rounded-xl border border-gray-300">
+                <Image
+                  alt="Profile"
+                  width={100}
+                  height={100}
+                  src={imageUrl}
+                  className="object-cover w-full h-full"
+                />
+              </div>
 
-            {/* User Info */}
-            <div className="flex-1 sm:ml-6 mt-4 sm:mt-0 w-full">
-              <div className="text-lg font-semibold text-gray-900">{name}</div>
-              <div className="text-sm text-gray-500 font-medium">{age} • {gender}</div>
-              <p className="text-sm text-gray-700 mt-2 line-clamp-3">{about}</p>
+              {/* User Info */}
+              <div className="flex-1 sm:ml-6 mt-4 sm:mt-0 w-full">
+                <div className="text-lg font-semibold text-gray-900">{name}</div>
+                <div className="text-sm text-gray-500 font-medium">{age} • {gender}</div>
+                <p className="text-sm text-gray-700 mt-2 line-clamp-3">{about}</p>
+              </div>
             </div>
 
             {/* Approve/Reject Button */}

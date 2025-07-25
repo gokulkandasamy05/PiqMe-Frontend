@@ -56,7 +56,7 @@ const UserCard: React.FC<Props> = ({ user, getFeedList, disabled }) => {
 
 
   return (
-    <div className="flex h-11/12 justify-center px-4 py-6 w-full">
+    <div className="flex sm:h-full md:h-11/12 justify-center px-4 py-6 w-full">
       <div className="bg-white h-full rounded-2xl shadow-lg overflow-hidden w-full max-w-md transition transform hover:scale-[1.01] duration-300">
         <img
           src={user?.image || (typeof defaultImage === 'string' ? defaultImage : defaultImage.src)}
@@ -75,7 +75,7 @@ const UserCard: React.FC<Props> = ({ user, getFeedList, disabled }) => {
 
           <div className="flex justify-center gap-6 pb-6">
             <button
-              className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition duration-300"
+              className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition duration-300 cursor-pointer"
               onClick={() => acceptOrReject('interested')}
               title="Accept"
             >
@@ -85,7 +85,7 @@ const UserCard: React.FC<Props> = ({ user, getFeedList, disabled }) => {
               </svg>
             </button>
             <button
-              className="bg-red-500 hover:bg-red-600 text-white p-3 rounded-full shadow-lg transition duration-300"
+              className="bg-red-500 hover:bg-red-600 text-white p-3 rounded-full shadow-lg transition duration-300 cursor-pointer"
               onClick={() => acceptOrReject('ignored')}
               title="Reject"
             >

@@ -7,15 +7,18 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Mousewheel } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
+import { useDispatch } from 'react-redux'
+import { setLoader } from '@/utils/commonSlice'
 
 const Page = () => {
   const [data, setData] = useState([])
-
+  const dispatch = useDispatch()
   useEffect(() => {
     getFeedList()
   }, [])
 
   const getFeedList = async () => {
+    dispatch(setLoader(true))
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/feed`, {
         method: 'GET',
@@ -39,6 +42,7 @@ const Page = () => {
           logout()
         }
       }
+      dispatch(setLoader(false))
     } catch (error) {
       console.error('Failed to fetch feed list:', error)
     }

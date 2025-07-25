@@ -44,7 +44,7 @@ const Header = () => {
         {!!user?._id && (
           <div className="flex items-center space-x-4">
             <p className="hidden sm:block text-sm font-medium text-gray-700">
-              {`Welcome, ${user?.firstName}`}
+              {`Welcome, ${(user?.firstName??'') + ' ' + (user?.lastName??'')}`}
             </p>
 
             <div className="relative group">
@@ -58,7 +58,7 @@ const Header = () => {
                 </div>
               </button>
 
-              <ul className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg ring-1 ring-black/5 opacity-0 group-hover:opacity-100 group-hover:translate-y-1 transform transition duration-200 z-50 divide-y divide-gray-100">
+              <ul className="absolute right-0 bg-white rounded-lg shadow-lg ring-1 ring-black/5 opacity-0 group-hover:opacity-100 group-hover:translate-y-1 transform transition duration-200 z-50 divide-y divide-gray-100">
                 <li>
                   <button
                     onClick={() => redirect('/profile')}
