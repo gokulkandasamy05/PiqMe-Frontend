@@ -44,7 +44,7 @@ const Requests = ({ name }: { name: 'requests' | 'connections' }) => {
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-4 shadow-md">
+    <div className="bg-white rounded-2xl p-4">
       <UserRow data={data} hideBtn={name === 'connections'} getData={getData} />
     </div>
   )

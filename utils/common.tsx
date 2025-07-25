@@ -4,7 +4,7 @@ import Image from '../public/defaultProfile.jpg'
 export const defaultImage = Image
 
 export const setProfileImage = (obj: { destination: string, filename: string}) => {
-    return process.env.NEXT_PUBLIC_API_BASE_URL + '/' + obj?.destination + obj?.filename
+    return !!obj?.destination ? (process.env.NEXT_PUBLIC_API_BASE_URL + '/' + obj?.destination + obj?.filename) : defaultImage?.src
 }
 
 

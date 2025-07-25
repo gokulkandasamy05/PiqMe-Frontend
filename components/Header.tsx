@@ -32,7 +32,7 @@ const Header = () => {
   }
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 bg-white shadow-sm border-b border-gray-200">
+    <header className="sticky top-0 inset-x-0 z-50 bg-white shadow-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div
           className="text-2xl font-bold text-pink-600 cursor-pointer tracking-tight"

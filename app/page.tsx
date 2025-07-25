@@ -12,29 +12,30 @@ export default function AppLayout({ children }: Readonly<{ children: React.React
     <>
       <div className="min-h-screen bg-[#F5F7FA] text-[#1F2937]">
         <Header />
-        <main className="pt-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <main className="mx-auto min-h-[95vh]">
           {children}
           <ToastContainer
             position="top-right"
-            autoClose={4000}
+            autoClose={5000}
             hideProgressBar={false}
-            newestOnTop={true}
-            closeOnClick
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
             pauseOnFocusLoss
             draggable
             pauseOnHover
-            theme="colored"
+            theme="dark"
             transition={Bounce}
           />
         </main>
         {/* <Footer /> */}
       </div>
 
-      {common?.isLoading && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-[9999]">
-          <div className="w-16 h-16 border-4 border-dashed border-pink-500 rounded-full animate-spin"></div>
+      {common?.isLoading &&
+        <div className="fixed inset-0 bg-[rgba(0,0,0,0.3)] flex items-center justify-center z-50">
+          <span className="loading loading-ring w-40"></span>
         </div>
-      )}
+      }
     </>
   );
 }

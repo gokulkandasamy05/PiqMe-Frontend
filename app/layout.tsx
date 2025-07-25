@@ -11,7 +11,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   
   return (
     <html lang="en">
-      <body className="h-screen">
+      <body className="min-h-screen">
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <AppLayout>{children}</AppLayout>

@@ -44,6 +44,7 @@ const Page = () => {
     }
   }
 
+
   return (
     <div className="h-screen py-10 px-4 flex justify-center items-center bg-gradient-to-b from-[#F0F4F8] to-[#D9E2EC]">
       <Swiper

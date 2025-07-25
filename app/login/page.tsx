@@ -61,6 +61,7 @@ const Login = () => {
                 }
                 dispatch(setLoader(false))
             } else {
+                dispatch(setLoader(false))
                 toast.error(data?.message)
             }
         } catch (err) {
@@ -74,7 +75,7 @@ const Login = () => {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB] px-4">
+        <div className="h-screen flex items-center justify-center bg-[#F9FAFB] px-4">
             <div className="w-full max-w-md bg-white border border-[#E5E7EB] shadow-md rounded-3xl p-8">
                 <h2 className="text-2xl font-semibold text-center text-[#1C1C28] mb-1">
                     {screen === 'login' ? 'Welcome Back' : 'Create an Account'}
