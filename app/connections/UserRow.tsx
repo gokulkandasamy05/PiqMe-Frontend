@@ -36,7 +36,7 @@ const UserRow: React.FC<Props> = ({ data = [], hideBtn, getData }) => {
 
   return (
     <ul className="space-y-4">
-      {data.map((item: User) => {
+      {data.map((item: User, index: number) => {
         const { fromUserId, toUserId } = item
 
         const user = fromUserId?.firstName ? fromUserId : toUserId
@@ -50,7 +50,7 @@ const UserRow: React.FC<Props> = ({ data = [], hideBtn, getData }) => {
 
         return (
           <li
-            key={item._id}
+            key={item._id || index}
             className="flex flex-col sm:flex-row items-center sm:items-start bg-white border border-gray-200 rounded-xl p-4 shadow hover:shadow-lg transition-all"
           >
             {/* Profile Image */}
