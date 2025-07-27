@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { FaEdit } from 'react-icons/fa'
-import { RootState } from '@/utils/appStore'
+import { persistor, RootState } from '@/utils/appStore'
 import ImageUpload from '../../components/fields/ImageUpload'
 import { setLoader } from '@/utils/commonSlice'
 
@@ -27,8 +27,12 @@ const Login = () => {
     const [userData, setUserData] = useState<screenFieldsTypes[ScreenType]>(() => screenFields[screen])
     const dispatch = useDispatch()
     const router = useRouter()
+    const user = useSelector((store: RootState) => store.user)
 
     useEffect(() => {
+        if(!!user){
+            persistor.purge()   
+        }
         setUserData(screenFields[screen])
     }, [screen])
 
