@@ -2,7 +2,7 @@ import { logout } from '@/utils/common';
 import React from 'react'
 import { toast } from 'react-toastify';
 
-const ApproveRejectButton = ({ disabled, getData, row }: { disabled: boolean, getData?: () => void, row?: { _id: string, fromUserId: { _id: string, firstName: string, lastName: string, about: string, age: string, gender: string, image: { destination: string | null, filename: string | null } }, toUserId: { firstName: string, lastName: string, about: string, age: string, gender: string, image: { destination: string | null, filename: string | null } } } }) => {
+const ApproveRejectButton = ({ getData, row }: { getData?: () => void, row?: { _id: string, fromUserId: { _id: string, firstName: string, lastName: string, about: string, age: string, gender: string, image: { destination: string | null, filename: string | null } }, toUserId: { firstName: string, lastName: string, about: string, age: string, gender: string, image: { destination: string | null, filename: string | null } } } }) => {
 
     const acceptOrReject = async (status: string) => {
         const id = row?._id

@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
-import { FaEdit } from 'react-icons/fa'
 import { persistor, RootState } from '@/utils/appStore'
 import ImageUpload from '../../components/fields/ImageUpload'
 import { setLoader } from '@/utils/commonSlice'
@@ -30,8 +29,8 @@ const Login = () => {
     const user = useSelector((store: RootState) => store.user)
 
     useEffect(() => {
-        if(!!user){
-            persistor.purge()   
+        if (!!user) {
+            persistor.purge()
         }
         setUserData(screenFields[screen])
     }, [screen])
@@ -74,9 +73,13 @@ const Login = () => {
         }
     }
 
-    const updateImage = (val : String, name = '') =>{
-        setUserData(p => ({ ...p, [name]: val }))
-    }
+    const updateImage = (val: { base64: string; file: File }, name = '') => {
+        setUserData((prev) => ({
+            ...prev,
+            [name]: val.base64, // store base64 string in userData.image
+        }));
+    };
+
 
     return (
         <div className="h-screen flex items-center justify-center bg-[#F9FAFB] px-4">
@@ -91,7 +94,20 @@ const Login = () => {
                 <form onSubmit={submitForm} className="space-y-5">
                     {screen === 'signup' && (
                         <>
-                            <ImageUpload acceptableMimeTypes="image/png,image/jpeg" image={userData?.image || defaultImage?.src} onChange={(val: String) => updateImage(val, 'image')} name='image'></ImageUpload>
+                            <ImageUpload
+                                acceptableMimeTypes="image/png,image/jpeg"
+                                image={userData?.image || defaultImage}
+                                onChange={(val) => {
+                                    if (typeof val.base64 === 'string') {
+                                        updateImage({ base64: val.base64, file: val.file }, 'image');
+                                    } else {
+                                        console.error("Invalid base64 value:", val.base64);
+                                    }
+                                }}
+                                name="image"
+                            />
+
+
 
                             <div>
                                 <label className="text-sm text-[#374151]">First Name</label>
@@ -158,7 +174,7 @@ const Login = () => {
                 <div className="text-center mt-6">
                     {screen === 'login' ? (
                         <>
-                            <p className="text-sm text-[#6B7280]">Don't have an account?</p>
+                            <p className="text-sm text-[#6B7280]">{"Don't have an account?"}</p>
                             <button
                                 onClick={() => setScreen('signup')}
                                 className="text-black cursor-pointer mt-1 text-sm font-medium hover:underline"

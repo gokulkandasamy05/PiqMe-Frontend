@@ -59,7 +59,7 @@ const UserCard: React.FC<Props> = ({ user, getFeedList, disabled }) => {
     <div className="flex sm:h-full md:h-11/12 justify-center px-4 py-6 w-full">
       <div className="bg-white h-full rounded-2xl shadow-lg overflow-hidden w-full max-w-md transition transform hover:scale-[1.01] duration-300">
         <img
-          src={user?.image || (typeof defaultImage === 'string' ? defaultImage : defaultImage.src)}
+          src={user?.image || (typeof defaultImage === 'string' ? defaultImage : defaultImage)}
           alt="Profile"
           className="w-full h-75 object-cover"
           loading="lazy"

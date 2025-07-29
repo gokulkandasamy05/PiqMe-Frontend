@@ -34,7 +34,7 @@ const Page = () => {
           image: item?.image?.destination ? setProfileImage({
             destination: item?.image?.destination,
             filename: item?.image?.filename
-          }) : defaultImage?.src
+          }) : defaultImage
         }))
         setData(transformed)
       } else {

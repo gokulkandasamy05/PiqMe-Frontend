@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from 'react'
 import Requests from './Requests'
-import Connections from './Connections'
 
 const Page = () => {
   const [tab, setTab] = useState<'requests' | 'connections'>('requests')

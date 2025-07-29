@@ -46,7 +46,7 @@ const UserRow: React.FC<Props> = ({ data = [], hideBtn, getData }) => {
         const about = user?.about
         const imageUrl = user?.image?.destination && user?.image?.filename
           ? setProfileImage({ destination: user.image.destination, filename: user.image.filename })
-          : typeof defaultImage === 'string' ? defaultImage : defaultImage.src
+          : typeof defaultImage === 'string' ? defaultImage : defaultImage
 
         return (
           <li
@@ -76,7 +76,7 @@ const UserRow: React.FC<Props> = ({ data = [], hideBtn, getData }) => {
             {/* Approve/Reject Button */}
             {!hideBtn && (
               <div className="mt-4 sm:mt-0 sm:ml-auto flex items-center gap-3">
-                <ApproveRejectButton row={item} getData={getData} disabled={false} />
+                <ApproveRejectButton row={item} getData={getData} />
               </div>
             )}
           </li>

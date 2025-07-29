@@ -1,5 +1,5 @@
 'use client'
-import { logout, setProfileImage, defaultImage } from '@/utils/common'
+import { logout } from '@/utils/common'
 import { setLoader } from '@/utils/commonSlice'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'

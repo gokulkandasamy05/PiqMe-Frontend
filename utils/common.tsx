@@ -1,11 +1,20 @@
 import { redirect } from "next/navigation";
 import { persistor } from "./appStore";
-import Image from '../public/defaultProfile.jpg'
-export const defaultImage = Image
+import DefaultImage from '../public/defaultProfile.jpg';
+export const defaultImage: string = DefaultImage.src;
 
-export const setProfileImage = (obj: { destination: string, filename: string}) => {
-    return !!obj?.destination ? (process.env.NEXT_PUBLIC_API_BASE_URL + '/' + obj?.destination + obj?.filename) : defaultImage?.src
-}
+export const setProfileImage = ({
+  destination,
+  filename,
+}: {
+  destination: string | undefined;
+  filename: string | undefined;
+}): string => {
+  return (destination && filename)
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${destination}${filename}`
+    : defaultImage;
+};
+
 
 
 export const logout = async () => {

@@ -1,8 +1,7 @@
 'use client'
 
-import { RootState } from '@/utils/appStore'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import ImageUpload from '@/components/fields/ImageUpload'
 import { toast } from 'react-toastify'
 import UserCard from '@/components/UserCard'
@@ -35,7 +34,6 @@ const initValue: ProfileState = {
 
 const Page = () => {
   const [profileData, setProfileData] = useState<ProfileState>(initValue)
-  const user = useSelector((store: RootState) => store.user)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -54,7 +52,7 @@ const Page = () => {
       })
       const res = await data.json()
       console.log(res);
-      
+
       dispatch(setLoader(false))
       setProfileData({ ...res?.data, image: setProfileImage(res?.data?.image), file: res?.data?.image })
     } catch (err) {
@@ -64,12 +62,12 @@ const Page = () => {
   }
 
   const submitForm = async (e: React.FormEvent) => {
-    
+
     dispatch(setLoader(true))
     e.preventDefault()
     const { about, age, firstName, gender, file, lastName } = profileData
     console.log(file);
-    
+
     const formData = new FormData()
     formData.append('firstName', firstName)
     formData.append('lastName', lastName)
@@ -92,7 +90,7 @@ const Page = () => {
       toast.error(data?.message)
       if (data?.logout) logout()
     }
-  dispatch(setLoader(false))
+    dispatch(setLoader(false))
   }
 
   const updateImage = (val: { base64: string, file: File }, name = '') => {
@@ -114,9 +112,16 @@ const Page = () => {
           <ImageUpload
             acceptableMimeTypes="image/png,image/jpeg"
             image={profileData.image || null}
-            onChange={(val: { base64: string; file: File }) => updateImage(val, 'image')}
+            onChange={(val: { base64: string | ArrayBuffer | null; file: File }) => {
+              if (typeof val.base64 === 'string') {
+                updateImage({ base64: val.base64, file: val.file }, 'image');
+              } else {
+                console.error('Invalid base64 format:', val.base64);
+              }
+            }}
             name="image"
           />
+
 
           <div>
             <label className="text-sm text-[#374151]">First Name</label>

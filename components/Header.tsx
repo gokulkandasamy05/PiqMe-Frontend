@@ -44,14 +44,20 @@ const Header = () => {
         {!!user?._id && (
           <div className="flex items-center space-x-4">
             <p className="hidden sm:block text-sm font-medium text-gray-700">
-              {`Welcome, ${(user?.firstName??'') + ' ' + (user?.lastName??'')}`}
+              {`Welcome, ${(user?.firstName ?? '') + ' ' + (user?.lastName ?? '')}`}
             </p>
 
             <div className="relative group">
               <button className="flex items-center focus:outline-none">
                 <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-pink-500">
                   <img
-                    src={setProfileImage({ destination: user?.image?.destination ?? "", filename: user?.image?.filename ?? "" }) ?? defaultImage}
+                    src={
+                      setProfileImage({
+                        destination: user?.image?.destination ?? "",
+                        filename: user?.image?.filename ?? ""
+                      }) || defaultImage
+                    }
+
                     alt="User Avatar"
                     className="object-cover w-full h-full"
                   />
