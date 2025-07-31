@@ -1,17 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /* config options here */
   reactStrictMode: true,
-  productionBrowserSourceMaps: false,
-  swcMinify: true,
+  // other config options...
   images: {
     domains: ['localhost'],
-    unoptimized: true
   },
-  experimental: {
-    optimizeCss: true,
-    scrollRestoration: true,
-  }
 };
 
 export default nextConfig;
