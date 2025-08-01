@@ -94,7 +94,7 @@ const Login = () => {
                 <form onSubmit={submitForm} className="space-y-5">
                     {screen === 'signup' && (
                         <>
-                            <ImageUpload
+                            {/* <ImageUpload
                                 acceptableMimeTypes="image/png,image/jpeg"
                                 image={userData?.image || defaultImage}
                                 onChange={(val) => {
@@ -105,7 +105,7 @@ const Login = () => {
                                     }
                                 }}
                                 name="image"
-                            />
+                            /> */}
 
 
 

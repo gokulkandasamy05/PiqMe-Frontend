@@ -54,7 +54,12 @@ const Page = () => {
       console.log(res);
 
       dispatch(setLoader(false))
-      setProfileData({ ...res?.data, image: setProfileImage(res?.data?.image), file: res?.data?.image })
+      if(res?.data){
+        const data = res?.data
+        data['image'] = res?.data?.image ? setProfileImage(res?.data?.image) : ''
+        data['file'] = res?.data?.image||null
+        setProfileData({ ...data})
+      }
     } catch (err) {
       console.error(err)
       dispatch(setLoader(false))
@@ -154,7 +159,7 @@ const Page = () => {
             <input
               type="text"
               name="age"
-              value={profileData.age}
+              value={profileData?.age || ''}
               onChange={changeInput}
               placeholder="Age"
               className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 focus:ring-2 focus:ring-pink-500 outline-none transition"
@@ -166,7 +171,7 @@ const Page = () => {
             <label className="text-sm text-[#374151]">Gender</label>
             <select
               name="gender"
-              value={profileData.gender}
+              value={profileData?.gender || ''}
               onChange={changeInput}
               required
               className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 focus:ring-2 focus:ring-pink-500 outline-none transition"
@@ -182,7 +187,7 @@ const Page = () => {
             <label className="text-sm text-[#374151]">About</label>
             <textarea
               name="about"
-              value={profileData.about}
+              value={profileData?.about || ''}
               onChange={changeInput}
               placeholder="Tell us about yourself"
               rows={4}
