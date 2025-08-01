@@ -1,12 +1,12 @@
 'use client'
-import { defaultImage } from '@/utils/common'
+// import { defaultImage } from '@/utils/common'
 import { setUser } from '@/utils/userSlice'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { persistor, RootState } from '@/utils/appStore'
-import ImageUpload from '../../components/fields/ImageUpload'
+// import ImageUpload from '../../components/fields/ImageUpload'
 import { setLoader } from '@/utils/commonSlice'
 
 type screenFieldsTypes = {
@@ -73,12 +73,12 @@ const Login = () => {
         }
     }
 
-    const updateImage = (val: { base64: string; file: File }, name = '') => {
-        setUserData((prev) => ({
-            ...prev,
-            [name]: val.base64, // store base64 string in userData.image
-        }));
-    };
+    // const updateImage = (val: { base64: string; file: File }, name = '') => {
+    //     setUserData((prev) => ({
+    //         ...prev,
+    //         [name]: val.base64, // store base64 string in userData.image
+    //     }));
+    // };
 
 
     return (
