@@ -10,7 +10,7 @@ import ClientLayoutWrapper from "@/components/ClientLayoutWrapper";
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen overflow-x-hidden">
+      <body className="overflow-x-hidden h-[100vh]">
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <ClientLayoutWrapper>

@@ -51,7 +51,7 @@ const Page = () => {
         credentials: "include"
       })
       const res = await data.json()
-      console.log(res);
+      // console.log(res);
 
       dispatch(setLoader(false))
       if(res?.data){

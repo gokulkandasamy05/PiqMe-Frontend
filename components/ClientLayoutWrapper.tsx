@@ -8,9 +8,9 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
   const common = useSelector((store: RootState) => store.common);
 
   return (
-    <div className="min-h-screen bg-[#F5F7FA] text-[#1F2937]">
+    <div className="bg-[#F5F7FA] text-[#1F2937] h-full">
       <Header />
-      <main className="mx-auto min-h-[95vh]">
+      <main className="mx-auto h-[90vh]">
         {children}
         <ToastContainer
           position="top-right"

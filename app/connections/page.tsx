@@ -6,10 +6,10 @@ const Page = () => {
   const [tab, setTab] = useState<'requests' | 'connections'>('requests')
 
   return (
-    <div className="min-h-screen flex justify-center py-10 px-4">
-      <div className="w-full max-w-3xl bg-white rounded-xl shadow-md border border-gray-200">
+    <div className="h-[90vh] flex justify-center mt-3">
+      <div className="w-full h-full max-w-3xl overflow-y-scroll bg-white rounded-xl shadow-md border border-gray-200">
         {/* Tabs Header */}
-        <div className="flex border-b border-gray-200">
+        <div className="flex border-b border-gray-200 sticky top-0 z-50 bg-white">
           <TabButton
             isActive={tab === 'requests'}
             onClick={() => setTab('requests')}

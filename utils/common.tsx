@@ -18,18 +18,35 @@ export const setProfileImage = ({
 
 
 export const logout = async () => {
-    const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/logout", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        credentials: "include"
-    });
+  const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/logout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include"
+  });
 
-    const data = await res?.json()
-    if (data?.status) {
-        persistor.purge()
-        redirect('/login')
+  const data = await res?.json()
+  if (data?.status) {
+    persistor.purge()
+    redirect('/login')
+  }
+  return data?.status
+}
+
+export const fetchConnectedList = async () => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}${'/user/connections'}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
     }
-    return data?.status
+  )
+  const result = await res.json()
+  // console.log(result);
+  
+  return result
 }
