@@ -6,8 +6,10 @@ import { useSelector } from 'react-redux'
 interface ChatsProps {
     id: string;
     messages: {
-        sender: 'from' | 'to'
-        text: string
+        sender: string
+        text: string,
+        createdAt: string,
+        side: string
     }[],
     name: string
 }
@@ -30,6 +32,12 @@ const ChatComponent: React.FC<ChatsProps> = ({ id, messages, name }) => {
         }
     }
 
+    const setDate = (date: string | Date | number) => {
+        const d = new Date(date)
+        return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    }
+
+
     return (
         <div className='w-full h-full relative flex flex-col justify-between'>
 
@@ -40,22 +48,18 @@ const ChatComponent: React.FC<ChatsProps> = ({ id, messages, name }) => {
                 {
                     messages.map((item, index) => {
                         return <div key={index}>
-                            {item?.sender === 'to' && <div className="chat chat-start">
-                                {/* <div className="chat-header">
-                                    Obi-Wan Kenobi
-                                    <time className="text-xs opacity-50">12:45</time>
-                                </div> */}
+                            {item?.side === 'to' ? <div className="chat chat-start">
                                 <div className="chat-bubble">{item?.text}</div>
-                                {/* <div className="chat-footer opacity-50">Delivered</div> */}
-                            </div>}
-                            {item?.sender === 'from' && <div className="chat chat-end">
-                                {/* <div className="chat-header">
-                                    Anakin
-                                    <time className="text-xs opacity-50">12:46</time>
-                                </div> */}
+                                <div className="chat-footer">
+                                    <time className="text-xs opacity-70">{setDate(item?.createdAt).toLocaleString()}</time>
+                                </div>
+                            </div> : <div className="chat chat-end">
+                                <div className="chat-footer">
+                                    <time className="text-xs opacity-70">{setDate(item?.createdAt).toLocaleString()}</time>
+                                </div>
                                 <div className="chat-bubble">{item?.text}</div>
-                                {/* <div className="chat-footer opacity-50">Seen at 12:46</div> */}
                             </div>}
+
                         </div>
                     })
                 }

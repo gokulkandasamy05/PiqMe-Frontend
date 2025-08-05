@@ -15,13 +15,15 @@ import { createSocketConnection } from '../../utils/socket'
 import { RootState } from '@/utils/appStore'
 
 interface MessageObj {
-  sender: 'from' | 'to'
+  sender: string
   text: string,
+  createdAt: string,
+  side: string
 }
 
 const Page = () => {
   const [data, setData] = useState([])
-  const [id, setId] = useState<{id: string, name: string}>({id: '', name:''})
+  const [id, setId] = useState<{ id: string, name: string }>({ id: '', name: '' })
   const dispatch = useDispatch()
   const user = useSelector((store: RootState) => store.user)
   const loggedinUserId = user?._id
@@ -32,14 +34,15 @@ const Page = () => {
       return
     }
     const socket = createSocketConnection()
+    getChatMessages(id?.id)
     if (id?.id) {
       socket.emit('joinChat', { loggedinUserId, id: id?.id })
     }
 
     socket.on('messageReceived', ({ text, loggedinUserId }) => {
-      const sender = user?._id === loggedinUserId ? 'from' : 'to'
+      const side = user?._id === loggedinUserId ? 'from' : 'to'
       setMessages((prev) => {
-        return ([...prev, {sender, text}])
+        return ([...prev, { sender: id?.id, text, createdAt: new Date().toISOString(), side: side }])
       })
     })
 
@@ -52,7 +55,6 @@ const Page = () => {
     getFeedList()
   }, [])
 
-  console.log(messages);
 
   const getFeedList = async () => {
     dispatch(setLoader(true))
@@ -85,8 +87,39 @@ const Page = () => {
     }
   }
 
-  const setUserId = (id: string, name:string) => {
-    setId({id: id, name: name})
+  const getChatMessages = async (id = '') => {
+    if (id) {
+      dispatch(setLoader(true))
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/getChat/${id}`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+        })
+        const res = await response.json()
+        if (res?.status) {
+          console.log(res);
+          if (res?.data) {
+            setMessages(res?.data.map((item: MessageObj) =>{
+              const side = user?._id === item?.sender ? 'from' : 'to'
+              return {...item, side: side}
+            }))
+          }
+        } else {
+          if (res?.logout) {
+            logout()
+          }
+        }
+        dispatch(setLoader(false))
+      } catch (error) {
+        console.error('Failed to fetch feed list:', error)
+      }
+    }
+
+  }
+
+  const setUserId = (id: string, name: string) => {
+    setId({ id: id, name: name })
   }
 
 
