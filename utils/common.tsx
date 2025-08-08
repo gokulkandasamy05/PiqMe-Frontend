@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { persistor } from "./appStore";
 import DefaultImage from '../public/defaultProfile.jpg';
+import { format } from "date-fns";
 export const defaultImage: string = DefaultImage.src;
 
 export const setProfileImage = ({
@@ -47,6 +48,11 @@ export const fetchConnectedList = async () => {
   )
   const result = await res.json()
   // console.log(result);
-  
+
   return result
+}
+
+export const getDate = (date : Date) => {
+  const formattedDate = format(new Date(date), 'dd MMM yyyy');
+  return formattedDate
 }

@@ -4,6 +4,7 @@ import { setLoader } from '@/utils/commonSlice'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import UserRow from './UserRow'
+import { clearUser } from '@/utils/userSlice'
 
 const Requests = ({ name }: { name: 'requests' | 'connections' }) => {
   const dispatch = useDispatch()
@@ -32,6 +33,7 @@ const Requests = ({ name }: { name: 'requests' | 'connections' }) => {
         setData(result.data)
       } else {
         if (result?.logout) {
+          dispatch(clearUser())
           logout()
         }
       }

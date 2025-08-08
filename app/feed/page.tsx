@@ -13,6 +13,8 @@ import Chats from '@/components/Chats'
 import ChatComponent from '@/components/ChatComponent'
 import { createSocketConnection } from '../../utils/socket'
 import { RootState } from '@/utils/appStore'
+import { clearUser } from '@/utils/userSlice'
+import { clearUser } from '@/utils/userSlice'
 
 interface MessageObj {
   sender: string
@@ -78,6 +80,7 @@ const Page = () => {
         setData(transformed)
       } else {
         if (res?.logout) {
+          dispatch(clearUser())
           logout()
         }
       }
@@ -107,6 +110,7 @@ const Page = () => {
           }
         } else {
           if (res?.logout) {
+            dispatch(clearUser())
             logout()
           }
         }

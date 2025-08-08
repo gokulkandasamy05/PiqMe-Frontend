@@ -1,9 +1,11 @@
 import { logout } from '@/utils/common';
+import { clearUser } from '@/utils/userSlice';
 import React from 'react'
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const ApproveRejectButton = ({ getData, row }: { getData?: () => void, row?: { _id: string, fromUserId: { _id: string, firstName: string, lastName: string, about: string, age: string, gender: string, image: { destination: string | null, filename: string | null } }, toUserId: { firstName: string, lastName: string, about: string, age: string, gender: string, image: { destination: string | null, filename: string | null } } } }) => {
-
+    const dispatch = useDispatch()
     const acceptOrReject = async (status: string) => {
         const id = row?._id
         try {
@@ -24,6 +26,7 @@ const ApproveRejectButton = ({ getData, row }: { getData?: () => void, row?: { _
                 // dispatch(setLoader(false))
             } else {
                 if (data?.logout) {
+                    dispatch(clearUser())
                     logout()
                 }
                 toast.error(data?.message)

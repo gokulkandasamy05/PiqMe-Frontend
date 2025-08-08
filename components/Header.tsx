@@ -26,6 +26,7 @@ const Header = () => {
       redirect('/login')
     } else {
       if (data?.logout) {
+        dispatch(clearUser())
         logout()
       }
     }

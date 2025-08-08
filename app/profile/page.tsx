@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import UserCard from '@/components/UserCard'
 import { logout, setProfileImage } from '@/utils/common'
 import { setLoader } from '@/utils/commonSlice'
+import { clearUser } from '@/utils/userSlice'
 
 type ProfileState = {
   firstName: string
@@ -54,12 +55,20 @@ const Page = () => {
       // console.log(res);
 
       dispatch(setLoader(false))
-      if(res?.data){
-        const data = res?.data
-        data['image'] = res?.data?.image ? setProfileImage(res?.data?.image) : ''
-        data['file'] = res?.data?.image||null
-        setProfileData({ ...data})
+      if (res?.status) {
+        if (res?.data) {
+          const data = res?.data
+          data['image'] = res?.data?.image ? setProfileImage(res?.data?.image) : ''
+          data['file'] = res?.data?.image || null
+          setProfileData({ ...data })
+        }
+      }else{
+         if (res?.logout) {
+          dispatch(clearUser())
+          logout()
+        }
       }
+
     } catch (err) {
       console.error(err)
       dispatch(setLoader(false))
@@ -93,7 +102,10 @@ const Page = () => {
       toast.success(data?.message)
     } else {
       toast.error(data?.message)
-      if (data?.logout) logout()
+      if (data?.logout) {
+        dispatch(clearUser())
+        logout()
+      }
     }
     dispatch(setLoader(false))
   }

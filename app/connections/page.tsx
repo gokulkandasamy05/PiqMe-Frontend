@@ -6,7 +6,7 @@ const Page = () => {
   const [tab, setTab] = useState<'requests' | 'connections'>('requests')
 
   return (
-    <div className="h-[90vh] flex justify-center mt-3">
+    <div className="h-[90vh] flex justify-center py-5">
       <div className="w-full h-full max-w-3xl overflow-y-scroll bg-white rounded-xl shadow-md border border-gray-200">
         {/* Tabs Header */}
         <div className="flex border-b border-gray-200 sticky top-0 z-50 bg-white">

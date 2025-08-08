@@ -5,6 +5,7 @@ import { defaultImage, logout } from '@/utils/common'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
 import { setLoader } from '@/utils/commonSlice'
+import { clearUser } from '@/utils/userSlice'
 
 type User = {
   _id: string
@@ -44,7 +45,9 @@ const UserCard: React.FC<Props> = ({ user, getFeedList, disabled }) => {
         toast.success(data?.message)
         getFeedList?.()
       } else {
-        if (data?.logout) logout()
+        if (data?.logout) {
+          dispatch(clearUser())
+          logout()}
         toast.error(data?.message)
       }
     } catch (err) {
