@@ -14,7 +14,6 @@ import ChatComponent from '@/components/ChatComponent'
 import { createSocketConnection } from '../../utils/socket'
 import { RootState } from '@/utils/appStore'
 import { clearUser } from '@/utils/userSlice'
-import { clearUser } from '@/utils/userSlice'
 
 interface MessageObj {
   sender: string
@@ -130,10 +129,10 @@ const Page = () => {
 
   return (
     <div className='w-full flex h-full'>
-      <div className='w-1/3 h-full'>
+      <div className='w-1/3 h-full hidden md:block'>
         <Chats setUserId={setUserId}></Chats>
       </div>
-      <div className="w-2/3 h-full flex justify-center items-center bg-gradient-to-b from-[#F0F4F8] to-[#D9E2EC]">
+      <div className="md:w-2/3 w-full h-full flex justify-center items-center bg-gradient-to-b from-[#F0F4F8] to-[#D9E2EC]">
         {id?.id ? <ChatComponent name={id?.name} id={id?.id} messages={messages}></ChatComponent> : <Swiper
           direction="vertical"
           slidesPerView={1}
