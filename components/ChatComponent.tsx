@@ -10,7 +10,8 @@ interface ChatsProps {
         sender: string
         text: string,
         createdAt: string,
-        side: string
+        side: string,
+    _id?:string
     }[],
     name: string
 }
@@ -42,7 +43,7 @@ const ChatComponent: React.FC<ChatsProps> = ({ id, messages, name }) => {
         const arr: string[] = []
         const todayDate = format(new Date(), 'dd MMM yyyy');
         if (messages?.length) {
-            const modifiedArr = messages.map((item, idx) => {
+            const modifiedArr = messages.map((item) => {
                 const date = item?.createdAt;
                 const formattedDate = format(new Date(date), 'dd MMM yyyy');
                 // Add dateHeader only for the first message of a new date
@@ -56,7 +57,7 @@ const ChatComponent: React.FC<ChatsProps> = ({ id, messages, name }) => {
                     text: item.text,
                     createdAt: item.createdAt,
                     updatedAt: item.createdAt, // Use createdAt as a placeholder if updatedAt is not available
-                    _id: (item as any)._id || '', // Use _id as required by the interface
+                    _id: item._id || '', // Use _id as required by the interface
                     dateHeader: dateHeader,
                     side: item?.side
                 };
@@ -137,7 +138,7 @@ const ChatComponent: React.FC<ChatsProps> = ({ id, messages, name }) => {
                         }
                     }}
                 />
-                <button onClick={(e) => {
+                <button onClick={() => {
                     sendMessage()
                 }} className="w-1/12 cursor-pointer bg-pink-600 hover:bg-pink-700 text-white py-2.5 rounded-lg font-medium transition">
                     Send
