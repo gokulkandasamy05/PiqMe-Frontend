@@ -1,9 +1,9 @@
 import io from 'socket.io-client'
-// utils/socket.ts
+
 export const createSocketConnection = () => {
-  return io('wss://piqme.live', {
-    path: '/socket.io',
-    transports: ['websocket', 'polling'],
-    withCredentials: true
-  })
+    return io(process.env.NEXT_PUBLIC_API_BASE_URL, {
+        transports: ['websocket'],
+        withCredentials: true
+    });
+
 }
