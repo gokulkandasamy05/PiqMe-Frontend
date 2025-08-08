@@ -4,28 +4,21 @@ import type { NextRequest } from 'next/server';
 import { persistor } from './utils/appStore';
 
 export function middleware(request: NextRequest) {
-  const userCookie = request.cookies.get('token');
-  const isLoggedIn = !!userCookie?.value;
+  const token = request.cookies.get('token')?.value;
   const { pathname } = request.nextUrl;
 
-  const protectedPaths = ['/', '/feed'];
-  const isProtected = protectedPaths.some((path) =>
-    pathname === path || pathname.startsWith(path + '/')
-  );
-  
+  const isLoggedIn = !!token;
 
-  if (isProtected && !isLoggedIn) {
-    persistor.purge()
+  // If not logged in and trying to access a protected page
+  if (!isLoggedIn && pathname.startsWith('/feed')) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  if (pathname === '/' && isLoggedIn) {
-    return NextResponse.redirect(new URL('/feed', request.url));
-  }
-
-  if(isLoggedIn && pathname === '/login'){
+  // If logged in and trying to access login page
+  if (isLoggedIn && pathname === '/login') {
     return NextResponse.redirect(new URL('/feed', request.url));
   }
 
   return NextResponse.next();
 }
+
