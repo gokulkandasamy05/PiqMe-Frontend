@@ -40,7 +40,7 @@ const Page = () => {
       socket.emit('joinChat', { loggedinUserId, id: id?.id })
     }
 
-    socket.on('messageReceived', ({ text, loggedinUserId }) => {
+    socket.on('messageReceived', ({ text, loggedinUserId }: { text: string; loggedinUserId: string }) => {
       const side = user?._id === loggedinUserId ? 'from' : 'to'
       setMessages((prev) => {
         return ([...prev, { sender: id?.id, text, createdAt: new Date().toISOString(), side: side }])
