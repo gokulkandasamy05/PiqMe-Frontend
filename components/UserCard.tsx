@@ -59,8 +59,8 @@ const UserCard: React.FC<Props> = ({ user, getFeedList, disabled }) => {
 
 
   return (
- <div className="min-h-screen flex items-center justify-center px-4">
-  <div className="bg-white w-full max-w-md rounded-2xl shadow-lg overflow-hidden transition transform hover:scale-[1.01] duration-300">
+ <div className="min-h-screen flex items-center justify-center px-4 w-full">
+  <div className={`bg-white w-full ${getFeedList ? 'max-w-md'  : ''} rounded-2xl shadow-lg overflow-hidden transition transform hover:scale-[1.01] duration-300`}>
     
     {/* Image Section */}
     <div>
