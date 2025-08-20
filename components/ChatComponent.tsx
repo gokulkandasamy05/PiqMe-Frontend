@@ -35,7 +35,7 @@ const ChatComponent: React.FC<ChatsProps> = ({ id, messages, name }) => {
 
     useEffect(() => {
         if (modifiedMessages?.length) {
-            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+            messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });
         }
     }, [modifiedMessages])
 
@@ -85,6 +85,9 @@ const ChatComponent: React.FC<ChatsProps> = ({ id, messages, name }) => {
         const d = new Date(date)
         return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
+
+    console.log(modifiedMessages);
+    
 
     return (
         <div className='w-full h-full relative flex flex-col justify-between'>
@@ -140,7 +143,7 @@ const ChatComponent: React.FC<ChatsProps> = ({ id, messages, name }) => {
                 />
                 <button onClick={() => {
                     sendMessage()
-                }} className="w-1/12 cursor-pointer bg-pink-600 hover:bg-pink-700 text-white py-2.5 rounded-lg font-medium transition">
+                }} className="min-w-1/12 px-4 cursor-pointer bg-pink-600 hover:bg-pink-700 text-white py-2.5 rounded-lg font-medium transition">
                     Send
                 </button>
             </div>

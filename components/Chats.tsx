@@ -46,7 +46,7 @@ const Chats: React.FC<ChatsProps> = ({ setUserId }) => {
         fetchData()
     }, [])
 
-    // console.log(connections);
+    console.log(connections);
 
 
     return (
