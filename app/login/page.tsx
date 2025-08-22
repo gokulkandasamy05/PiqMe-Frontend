@@ -1,6 +1,6 @@
 'use client'
 // import { defaultImage } from '@/utils/common'
-import { setUser } from '@/utils/userSlice'
+import { clearUser, setUser } from '@/utils/userSlice'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -27,7 +27,12 @@ const Login = () => {
     const dispatch = useDispatch()
     const router = useRouter()
     const user = useSelector((store: RootState) => store.user)
+    console.log(user);
 
+    useEffect(() =>{
+        dispatch(clearUser())
+    },[])
+    
     useEffect(() => {
         if (!!user) {
             persistor.purge()
