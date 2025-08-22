@@ -122,9 +122,12 @@ const Page = () => {
   }
 
   const setUserId = (id: string, name: string) => {
-    setId({ id: id, name: name })
+    setId({ id: id??'', name: name??'' })
   }
 
+
+  console.log(id);
+  
 
 
   return (
@@ -133,7 +136,7 @@ const Page = () => {
         <Chats setUserId={setUserId}></Chats>
       </div>
       <div className="md:w-2/3 w-full h-full flex justify-center items-center bg-gradient-to-b from-[#F0F4F8] to-[#D9E2EC]">
-        {id?.id ? <ChatComponent name={id?.name} id={id?.id} messages={messages}></ChatComponent> : <Swiper
+        {id?.id ? <ChatComponent setId={setId} name={id?.name} id={id?.id} messages={messages}></ChatComponent> : <Swiper
           direction="vertical"
           slidesPerView={1}
           mousewheel

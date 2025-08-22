@@ -62,7 +62,7 @@ const Login = () => {
                 toast.success(data?.message)
                 if (screen === 'login') {
                     dispatch(setUser(data?.data))
-                    router.push('/feed')
+                    router.replace('/feed')
                 } else {
                     setScreen('login')
                     setUserData({ emailId: '', password: '' })

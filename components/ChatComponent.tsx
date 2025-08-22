@@ -3,7 +3,7 @@ import { createSocketConnection } from '@/utils/socket'
 import { format } from 'date-fns';
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-
+import { IoArrowBackSharp } from "react-icons/io5";
 interface ChatsProps {
     id: string;
     messages: {
@@ -14,6 +14,7 @@ interface ChatsProps {
     _id?:string
     }[],
     name: string
+    setId: () => void
 }
 
 interface message {
@@ -26,7 +27,7 @@ interface message {
     side: string
 }
 
-const ChatComponent: React.FC<ChatsProps> = ({ id, messages, name }) => {
+const ChatComponent: React.FC<ChatsProps> = ({ id, messages, name, setId }) => {
     const [text, setText] = useState('')
     const user = useSelector((store: RootState) => store.user)
     const loggedinUserId = user?._id
@@ -92,8 +93,9 @@ const ChatComponent: React.FC<ChatsProps> = ({ id, messages, name }) => {
     return (
         <div className='w-full h-full relative flex flex-col justify-between'>
 
-            <div className='sticky top-0 w-full bg-pink-200 text-black p-3'>
-                <p>{name}</p>
+            <div className='sticky top-0 w-full bg-gray-50 text-black p-3 flex gap-5 items-center content-center shadow-2xs'>
+                <IoArrowBackSharp className='cursor-pointer' onClick={setId} />
+                <p className='text-[#e60076]'>{name}</p>
             </div>
             <div className='px-5 overflow-x-scroll h-full sticky top-0' >
                 {
