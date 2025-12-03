@@ -17,8 +17,8 @@ import { clearUser } from '@/utils/userSlice'
 
 interface MessageObj {
   sender: string
-  text: string,
-  createdAt: string,
+  text: string
+  createdAt: string
   side: string
 }
 
@@ -31,31 +31,24 @@ const Page = () => {
   const [messages, setMessages] = useState<MessageObj[]>([])
 
   useEffect(() => {
-    if (!id?.id) {
-      return
-    }
+    if (!id?.id) return
+
     const socket = createSocketConnection()
     getChatMessages(id?.id)
-    if (id?.id) {
-      socket.emit('joinChat', { loggedinUserId, id: id?.id })
-    }
+
+    socket.emit('joinChat', { loggedinUserId, id: id?.id })
 
     socket.on('messageReceived', ({ text, loggedinUserId }: { text: string; loggedinUserId: string }) => {
       const side = user?._id === loggedinUserId ? 'from' : 'to'
-      setMessages((prev) => {
-        return ([...prev, { sender: id?.id, text, createdAt: new Date().toISOString(), side: side }])
-      })
+      setMessages((prev) => [...prev, { sender: id?.id, text, createdAt: new Date().toISOString(), side }])
     })
 
-    return () => {
-      socket.disconnect()
-    }
+    return () => socket.disconnect()
   }, [id?.id])
 
   useEffect(() => {
     getFeedList()
   }, [])
-
 
   const getFeedList = async () => {
     dispatch(setLoader(true))
@@ -66,89 +59,90 @@ const Page = () => {
         credentials: 'include',
       })
       const res = await response.json()
+
       if (res?.status) {
-        const transformed = res.data.map((item: {
-          image: { destination: string; filename: string }
-        }) => ({
+        const transformed = res.data.map((item: { image: { destination: string; filename: string } }) => ({
           ...item,
-          image: item?.image?.destination ? setProfileImage({
-            destination: item?.image?.destination,
-            filename: item?.image?.filename
-          }) : defaultImage
+          image: item?.image?.destination
+            ? setProfileImage({
+                destination: item?.image?.destination,
+                filename: item?.image?.filename
+              })
+            : defaultImage
         }))
         setData(transformed)
-      } else {
-        if (res?.logout) {
-          dispatch(clearUser())
-          logout()
-        }
+      } else if (res?.logout) {
+        dispatch(clearUser())
+        logout()
       }
-      dispatch(setLoader(false))
     } catch (error) {
       console.error('Failed to fetch feed list:', error)
     }
+    dispatch(setLoader(false))
   }
 
   const getChatMessages = async (id = '') => {
-    if (id) {
-      dispatch(setLoader(true))
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/getChat/${id}`, {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-        })
-        const res = await response.json()
-        if (res?.status) {
-          console.log(res);
-          if (res?.data) {
-            setMessages(res?.data.map((item: MessageObj) =>{
-              const side = user?._id === item?.sender ? 'from' : 'to'
-              return {...item, side: side}
-            }))
-          }
-        } else {
-          if (res?.logout) {
-            dispatch(clearUser())
-            logout()
-          }
-        }
-        dispatch(setLoader(false))
-      } catch (error) {
-        console.error('Failed to fetch feed list:', error)
+    if (!id) return
+    dispatch(setLoader(true))
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/getChat/${id}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+      })
+      const res = await response.json()
+
+      if (res?.status && res?.data) {
+        setMessages(res.data.map((item: MessageObj) => ({
+          ...item,
+          side: user?._id === item?.sender ? 'from' : 'to'
+        })))
+      } else if (res?.logout) {
+        dispatch(clearUser())
+        logout()
       }
+    } catch (error) {
+      console.error('Failed to fetch chat messages:', error)
     }
 
+    dispatch(setLoader(false))
   }
 
-  const setUserId = (id: string, name: string) => {
-    setId({ id: id??'', name: name??'' })
+  // FIXED: Correct function to pass to ChatComponent
+  const setUserId = (userId: string, name: string) => {
+    setId({ id: userId ?? '', name: name ?? '' })
   }
-
-
-  console.log(id);
-  
-
 
   return (
     <div className='w-full flex h-full'>
       <div className='w-1/3 h-full hidden md:block'>
-        <Chats setUserId={setUserId}></Chats>
+        <Chats setUserId={setUserId} />
       </div>
+
       <div className="md:w-2/3 w-full h-full flex justify-center items-center bg-gradient-to-b from-[#F0F4F8] to-[#D9E2EC]">
-        {id?.id ? <ChatComponent setId={setId} name={id?.name} id={id?.id} messages={messages}></ChatComponent> : <Swiper
-          direction="vertical"
-          slidesPerView={1}
-          mousewheel
-          modules={[Mousewheel]}
-          className="w-full max-w-2xl h-full"
-        >
-          {data.map((item, index) => (
-            <SwiperSlide key={index}>
-              <UserCard getFeedList={getFeedList} user={item} />
-            </SwiperSlide>
-          ))}
-        </Swiper>}
+        {id?.id ? (
+          <ChatComponent
+            setId={setUserId}  // ← FIXED HERE
+            name={id?.name}
+            id={id?.id}
+            messages={messages}
+          />
+        ) : (
+          <Swiper
+            direction="vertical"
+            slidesPerView={1}
+            mousewheel
+            modules={[Mousewheel]}
+            className="w-full max-w-2xl h-full"
+          >
+            {data.map((item, index) => (
+              <SwiperSlide key={index}>
+                <UserCard getFeedList={getFeedList} user={item} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
       </div>
     </div>
   )
