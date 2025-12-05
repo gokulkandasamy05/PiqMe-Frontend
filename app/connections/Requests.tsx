@@ -18,7 +18,7 @@ const Requests = ({ name }: { name: 'requests' | 'connections' }) => {
     try {
       dispatch(setLoader(true))
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}${name === 'connections' ? '/user/connections' : '/user/requests'}`,
+        `${'https://piqme.live/api'}${name === 'connections' ? '/user/connections' : '/user/requests'}`,
         {
           method: 'GET',
           headers: {

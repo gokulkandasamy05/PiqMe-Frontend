@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(req: NextRequest) {
   const cookie = req.headers.get('cookie') || '';
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/feed`, {
+  const response = await fetch(`${'https://piqme.live/api'}/user/feed`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
 // export async function GET_USER_REQUESTS(req: NextRequest) {
 //   const cookie = req.headers.get('cookie') || '';
 
-//   const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/requests`, {
+//   const response = await fetch(`${'https://piqme.live/api'}/user/requests`, {
 //     method: 'GET',
 //     headers: {
 //       'Content-Type': 'application/json',

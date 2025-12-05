@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 
 // Next.js replaces this with the actual URL during build
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+const API_BASE = 'https://piqme.live/api' || "";
 
 export const createSocketConnection = () => {
   if (typeof window !== "undefined" && window.location.hostname === "localhost") {

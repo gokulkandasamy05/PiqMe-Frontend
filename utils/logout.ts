@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { persistor } from "./appStore";
 
 export const logout = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/logout`, {
+  const res = await fetch(`${'https://piqme.live/api'}/logout`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",

@@ -9,7 +9,7 @@ import { persistor, RootState } from '@/utils/appStore'
 // import ImageUpload from '../../components/fields/ImageUpload'
 import { setLoader } from '@/utils/commonSlice'
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL!;  // ⭐ FIX
+const API_BASE = 'https://piqme.live/api'!;  // ⭐ FIX
 
 type screenFieldsTypes = {
     login: { firstName?: string, lastName?: string, emailId: string, password: string, image?: string },
