@@ -9,6 +9,8 @@ import { persistor, RootState } from '@/utils/appStore'
 // import ImageUpload from '../../components/fields/ImageUpload'
 import { setLoader } from '@/utils/commonSlice'
 
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL!;  // ⭐ FIX
+
 type screenFieldsTypes = {
     login: { firstName?: string, lastName?: string, emailId: string, password: string, image?: string },
     signup: { firstName: string, lastName: string, emailId: string, password: string, image: string },
@@ -49,7 +51,7 @@ const Login = () => {
         dispatch(setLoader(true))
         try {
             e.preventDefault()
-            const res = await fetch(process.env?.NEXT_PUBLIC_API_BASE_URL + (screen === 'signup' ? '/signUp' : "/login"), {
+            const res = await fetch(API_BASE + (screen === 'signup' ? '/signUp' : "/login"), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
