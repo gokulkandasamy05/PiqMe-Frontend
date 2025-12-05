@@ -3,7 +3,7 @@ import React, { useRef } from 'react'
 import { toast } from 'react-toastify'
 import { FaEdit } from 'react-icons/fa'
 import Image from 'next/image'
-import { defaultImage } from '@/utils/common'
+import { defaultImage } from '@/utils/common.client'
 
 type Props = {
   acceptableMimeTypes: string

@@ -1,5 +1,5 @@
 import ApproveRejectButton from '@/components/ApproveRejectButton'
-import { defaultImage, setProfileImage } from '@/utils/common'
+import { defaultImage, setProfileImage } from '@/utils/common.client'
 import Image from 'next/image'
 import React from 'react'
 

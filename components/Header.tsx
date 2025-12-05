@@ -1,6 +1,6 @@
 'use client'
 import { persistor, RootState } from '@/utils/appStore'
-import { defaultImage, setProfileImage } from '@/utils/common'
+import { defaultImage, setProfileImage } from '@/utils/common.client'
 import { clearUser } from '@/utils/userSlice'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'

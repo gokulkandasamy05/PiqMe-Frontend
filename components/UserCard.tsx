@@ -3,7 +3,7 @@
 import React from 'react'
 import { logout } from "@/utils/logout";
 
-import { defaultImage } from '@/utils/common'
+import { defaultImage } from '@/utils/common.client'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
 import { setLoader } from '@/utils/commonSlice'

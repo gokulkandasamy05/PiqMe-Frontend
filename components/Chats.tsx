@@ -1,6 +1,6 @@
 'use client'
 
-import { defaultImage, fetchConnectedList, setProfileImage } from '@/utils/common'
+import { defaultImage, fetchConnectedList, setProfileImage } from '@/utils/common.client'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 

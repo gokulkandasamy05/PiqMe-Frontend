@@ -1,5 +1,5 @@
 'use client'
-// import { defaultImage } from '@/utils/common'
+// import { defaultImage } from '@/utils/common.client'
 import { clearUser, setUser } from '@/utils/userSlice'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'

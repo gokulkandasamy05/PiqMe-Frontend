@@ -1,7 +1,7 @@
 'use client'
 
 import UserCard from '@/components/UserCard'
-import { defaultImage, setProfileImage } from '@/utils/common'
+import { defaultImage, setProfileImage } from '@/utils/common.client'
 import React, { useEffect, useState } from 'react'
 import { logout } from "@/utils/logout";
 import { Swiper, SwiperSlide } from 'swiper/react'
