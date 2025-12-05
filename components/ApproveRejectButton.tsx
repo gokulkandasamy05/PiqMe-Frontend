@@ -1,4 +1,5 @@
-import { logout } from '@/utils/common';
+import { logout } from "@/utils/logout";
+
 import { clearUser } from '@/utils/userSlice';
 import React from 'react'
 import { useDispatch } from 'react-redux';

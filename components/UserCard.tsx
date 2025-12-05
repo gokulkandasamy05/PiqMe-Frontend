@@ -1,7 +1,9 @@
 'use client'
 
 import React from 'react'
-import { defaultImage, logout } from '@/utils/common'
+import { logout } from "@/utils/logout";
+
+import { defaultImage } from '@/utils/common'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
 import { setLoader } from '@/utils/commonSlice'

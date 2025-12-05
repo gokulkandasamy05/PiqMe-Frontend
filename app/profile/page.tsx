@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux'
 import ImageUpload from '@/components/fields/ImageUpload'
 import { toast } from 'react-toastify'
 import UserCard from '@/components/UserCard'
-import { logout, setProfileImage } from '@/utils/common'
+import { logout } from "@/utils/logout";
+import { setProfileImage } from '@/utils/common'
 import { setLoader } from '@/utils/commonSlice'
 import { clearUser } from '@/utils/userSlice'
 
