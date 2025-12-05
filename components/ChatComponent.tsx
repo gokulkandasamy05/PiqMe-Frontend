@@ -7,15 +7,17 @@ import { IoArrowBackSharp } from "react-icons/io5";
 interface ChatsProps {
     id: string;
     messages: {
-        sender: string
-        text: string,
-        createdAt: string,
-        side: string,
-    _id?:string
-    }[],
-    name: string
-    setId: () => void
+        sender: string;
+        text: string;
+        createdAt: string;
+        side: string;
+        _id?: string;
+    }[];
+    name: string;
+    setId: (userId: string, name: string) => void;
 }
+
+
 
 interface message {
     createdAt: string
@@ -94,7 +96,7 @@ const ChatComponent: React.FC<ChatsProps> = ({ id, messages, name, setId }) => {
         <div className='w-full h-full relative flex flex-col justify-between'>
 
             <div className='sticky top-0 w-full bg-gray-50 text-black p-3 flex gap-5 items-center content-center shadow-2xs'>
-                <IoArrowBackSharp className='cursor-pointer' onClick={setId} />
+                <IoArrowBackSharp className='cursor-pointer' onClick={() => setId('', '')} />
                 <p className='text-[#e60076]'>{name}</p>
             </div>
             <div className='px-5 overflow-x-scroll h-full sticky top-0' >
