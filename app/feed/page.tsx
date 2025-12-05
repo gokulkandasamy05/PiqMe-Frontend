@@ -31,20 +31,24 @@ const Page = () => {
   const [messages, setMessages] = useState<MessageObj[]>([])
 
   useEffect(() => {
-    if (!id?.id) return
+  if (!id?.id) return
 
-    const socket = createSocketConnection()
-    getChatMessages(id?.id)
+  const socket = createSocketConnection()
+  getChatMessages(id?.id)
 
-    socket.emit('joinChat', { loggedinUserId, id: id?.id })
+  socket.emit('joinChat', { loggedinUserId, id: id?.id })
 
-    socket.on('messageReceived', ({ text, loggedinUserId }: { text: string; loggedinUserId: string }) => {
-      const side = user?._id === loggedinUserId ? 'from' : 'to'
-      setMessages((prev) => [...prev, { sender: id?.id, text, createdAt: new Date().toISOString(), side }])
-    })
+  socket.on('messageReceived', ({ text, loggedinUserId }: { text: string; loggedinUserId: string }) => {
+    const side = user?._id === loggedinUserId ? 'from' : 'to'
+    setMessages((prev) => [...prev, { sender: id?.id, text, createdAt: new Date().toISOString(), side }])
+  })
 
-    return () => socket.disconnect()
-  }, [id?.id])
+  // ⭐ FIXED CLEANUP
+  return () => {
+    socket.disconnect()
+  }
+}, [id?.id])
+
 
   useEffect(() => {
     getFeedList()
