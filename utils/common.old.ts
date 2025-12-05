@@ -10,15 +10,13 @@ export const setProfileImage = ({
   destination?: string;
   filename?: string;
 }) => {
-  const API = 'https://piqme.live/api' || "";
   return destination && filename
-    ? `${API}/${destination}${filename}`
+    ? `https://piqme.live/api/${destination}${filename}`
     : defaultImage;
 };
 
 export const fetchConnectedList = async () => {
-  const API = 'https://piqme.live/api' || "";
-  const res = await fetch(`${API}/user/connections`, {
+  const res = await fetch(`https://piqme.live/api/user/connections`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
