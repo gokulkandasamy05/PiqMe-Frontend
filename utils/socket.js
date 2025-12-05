@@ -2,7 +2,7 @@ import io from 'socket.io-client'
 
 export const createSocketConnection = () => {
   if (location.hostname === 'localhost') {
-    return io(process.env.NEXT_PUBLIC_API_BASE_URL);
+    return io('https://piqme.live/api');
   }else{
     return io('/', {
       path: "/api/socket.io",

@@ -32,7 +32,7 @@ const UserCard: React.FC<Props> = ({ user, getFeedList, disabled }) => {
     const id = user?._id
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/request/send/${status}/${id}`, {
+      const res = await fetch(`${'https://piqme.live/api'}/request/send/${status}/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

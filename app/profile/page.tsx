@@ -44,7 +44,7 @@ const Page = () => {
   const getProfileData = async () => {
     try {
       dispatch(setLoader(true))
-      const data = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/profile/view`, {
+      const data = await fetch(`${'https://piqme.live/api'}/profile/view`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ const Page = () => {
     formData.append('age', age)
     formData.append('gender', gender)
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/profile/edit`, {
+    const res = await fetch(`${'https://piqme.live/api'}/profile/edit`, {
       method: "PATCH",
       body: formData,
       credentials: "include"

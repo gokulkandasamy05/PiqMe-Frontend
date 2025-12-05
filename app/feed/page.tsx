@@ -57,7 +57,7 @@ const Page = () => {
   const getFeedList = async () => {
     dispatch(setLoader(true))
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/feed`, {
+      const response = await fetch(`${'https://piqme.live/api'}/user/feed`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -90,7 +90,7 @@ const Page = () => {
     dispatch(setLoader(true))
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/getChat/${id}`, {
+      const response = await fetch(`${'https://piqme.live/api'}/getChat/${id}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

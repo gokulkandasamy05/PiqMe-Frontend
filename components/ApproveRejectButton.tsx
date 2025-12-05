@@ -9,7 +9,7 @@ const ApproveRejectButton = ({ getData, row }: { getData?: () => void, row?: { _
     const acceptOrReject = async (status: string) => {
         const id = row?._id
         try {
-            const res = await fetch(process.env?.NEXT_PUBLIC_API_BASE_URL + `/request/review/${status}/${id}`, {
+            const res = await fetch('https://piqme.live/api' + `/request/review/${status}/${id}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

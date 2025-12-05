@@ -12,14 +12,14 @@ export const setProfileImage = ({
   filename: string | undefined;
 }): string => {
   return (destination && filename)
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${destination}${filename}`
+    ? `${'https://piqme.live/api'}/${destination}${filename}`
     : defaultImage;
 };
 
 
 
 export const logout = async () => {
-  const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/logout", {
+  const res = await fetch('https://piqme.live/api' + "/logout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export const logout = async () => {
 
 export const fetchConnectedList = async () => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}${'/user/connections'}`,
+    `${'https://piqme.live/api'}${'/user/connections'}`,
     {
       method: 'GET',
       headers: {

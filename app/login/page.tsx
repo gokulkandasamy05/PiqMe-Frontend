@@ -49,7 +49,7 @@ const Login = () => {
         dispatch(setLoader(true))
         try {
             e.preventDefault()
-            const res = await fetch(process.env?.NEXT_PUBLIC_API_BASE_URL + (screen === 'signup' ? '/signUp' : "/login"), {
+            const res = await fetch('https://piqme.live/api' + (screen === 'signup' ? '/signUp' : "/login"), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
